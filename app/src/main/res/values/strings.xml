@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Poshan Photo Print</string>
+    <string name="subtitle">Anganwadi A4 Photo Report</string>
+    <string name="select_photos">Select Photos from Gallery</string>
+    <string name="select_photos_hi">गैलरी से फोटो चुनें</string>
+    <string name="select_photos_desc">Choose photos taken with GPS Map Camera. The app will auto-sort them in ascending date order into a neat 2-column grid.</string>
+    <string name="processing_photos">Reading photos and timestamps…</string>
+    <string name="reorder_title">Review &amp; Reorder Photos</string>
+    <string name="reorder_tip">Photos are arranged in a 2-column grid (R1C1, R1C2, R2C1…). Tap ⬆️ ⬇️ to reorder, ✏️ to edit date.</string>
+    <string name="preview_a4">View A4 Print Preview</string>
+    <string name="share_whatsapp">Share to WhatsApp (PDF)</string>
+    <string name="direct_print">Print Document</string>
+    <string name="save_to_phone">Download PDF / JPG</string>
+    <string name="edit_date">Edit Date</string>
+    <string name="replace_photo">Replace Photo</string>
+    <string name="delete_photo">Remove</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="saved_reports">Saved Reports</string>
+    <string name="no_saved_reports">No saved reports yet</string>
+    <string name="create_new_report">Create New Report</string>
+    <string name="no_photos_selected">Please select photos</string>
+    <string name="page_summary">%1$d photos ready for A4 printing</string>
+    <string name="a4_preview_title">A4 Print Preview</string>
+</resources>

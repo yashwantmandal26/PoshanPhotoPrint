@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">पोषण फोटो प्रिंट</string>
+    <string name="subtitle">आँगनबाड़ी केंद्र A4 मासिक फोटो रिपोर्ट</string>
+    <string name="select_photos">फोटो चुनें (4, 6 या अधिक)</string>
+    <string name="select_photos_desc">GPS Map Camera से खींची गई तस्वीरें चुनें। ऐप तारीख के अनुसार इन्हें अपने आप क्रम में लगा देगा।</string>
+    <string name="processing_photos">फोटो और तारीख की जांच हो रही है…</string>
+    <string name="reorder_title">फोटो क्रम और तारीख जांचें</string>
+    <string name="reorder_tip">क्रम बदलने के लिए दबाकर खींचें। तारीख बदलने के लिए ✏️ दबाएं।</string>
+    <string name="preview_a4">A4 प्रिंट प्रीव्यू देखें</string>
+    <string name="share_whatsapp">WhatsApp पर भेजें (PDF)</string>
+    <string name="direct_print">प्रिंट करें</string>
+    <string name="save_to_phone">फोन में सेव करें</string>
+    <string name="edit_date">तारीख बदलें</string>
+    <string name="replace_photo">फोटो बदलें</string>
+    <string name="delete_photo">हटाएं</string>
+    <string name="save">सुरक्षित करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="no_photos_selected">कृपया कम से कम 2 फोटो चुनें</string>
+    <string name="page_summary">%1$d फोटो A4 शीट पर सेट हैं</string>
+    <string name="a4_preview_title">A4 प्रिंट प्रीव्यू</string>
+</resources>
