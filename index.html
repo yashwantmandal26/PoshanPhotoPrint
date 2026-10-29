@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poshan Photo Print - Download Latest APK</title>
+  <meta name="description" content="Poshan Photo Print: Auto-sort GPS Map Camera photos by timestamp into clean, print-ready 2-column A4 PDF & image reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00668b;
+      --primary-hover: #00506e;
+      --primary-glow: rgba(0, 102, 139, 0.35);
+      --surface: #ffffff;
+      --background: #f4f7f9;
+      --text: #191c1e;
+      --text-muted: #5c646b;
+      --card-border: #e2e8f0;
+      --accent: #25d366;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --surface: #1e2429;
+        --background: #111518;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --card-border: #2d3748;
+        --primary: #38bdf8;
+        --primary-hover: #0ea5e9;
+        --primary-glow: rgba(56, 189, 248, 0.35);
+      }
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--surface);
+      border-radius: 28px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12);
+      padding: 36px 28px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 102, 139, 0.12);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 20px;
+    }
+    .app-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #00668b 0%, #0093c4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 12px 24px var(--primary-glow);
+    }
+    .app-icon svg {
+      width: 48px;
+      height: 48px;
+      fill: #ffffff;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px var(--primary-glow);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+    }
+    .download-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px var(--primary-glow);
+    }
+    .download-btn:active {
+      transform: translateY(0);
+    }
+    .meta-text {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .features {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .feature-icon {
+      font-size: 18px;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .github-link {
+      margin-top: 24px;
+      display: inline-block;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .github-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">🚀 Official Release</div>
+    <div class="app-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+      </svg>
+    </div>
+    <h1>Poshan Photo Print</h1>
+    <p class="subtitle">
+      Automated GPS timestamp reader, chronological sorter, and compact 2-column A4 PDF report generator for Anganwadi & Poshan workers.
+    </p>
+
+    <!-- Big Download Button -->
+    <a id="downloadButton" href="PoshanPhotoPrint.apk" download="PoshanPhotoPrint.apk" class="download-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+      </svg>
+      Download Latest APK
+    </a>
+
+    <div class="meta-text">
+      <span>Android 8.0+</span> • <span>100% Offline & Private</span> • <span>Free</span>
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">📅</span>
+        <div><strong>Automatic Date OCR & Sorting:</strong> Instantly extracts timestamps from photo GPS banners and arranges them chronologically.</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📑</span>
+        <div><strong>Ready-to-Print A4 Layouts:</strong> Strict 2-column grids with custom presets (Compact, Left, Center, Right) and zero extra gaps.</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <div><strong>Ultra Smooth Experience:</strong> Fluid drag & drop reordering, spring-physics zoom, and instant full-screen photo editing.</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💬</span>
+        <div><strong>WhatsApp & Print Ready:</strong> High compression mode (&lt;400 KB) for fast messaging and crisp 300 DPI for physical printing.</div>
+      </div>
+    </div>
+
+    <a class="github-link" href="https://github.com/yashwantmandal26/PoshanPhotoPrint" target="_blank" rel="noopener">
+      View source code on GitHub →
+    </a>
+  </div>
+
+  <script>
+    // Fetch latest GitHub release asset if available
+    fetch('https://api.github.com/repos/yashwantmandal26/PoshanPhotoPrint/releases/latest')
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.assets && data.assets.length > 0) {
+          const apkAsset = data.assets.find(a => a.name.endsWith('.apk'));
+          if (apkAsset && apkAsset.browser_download_url) {
+            document.getElementById('downloadButton').href = apkAsset.browser_download_url;
+          }
+        }
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
