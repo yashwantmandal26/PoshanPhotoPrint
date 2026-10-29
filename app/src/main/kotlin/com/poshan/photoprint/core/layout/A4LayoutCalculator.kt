@@ -113,6 +113,7 @@ object A4LayoutCalculator {
         val isCenter = preset == LayoutPreset.CENTER
         val isLeft = preset == LayoutPreset.LEFT
         val isRight = preset == LayoutPreset.RIGHT
+        val isJustified = preset == LayoutPreset.JUSTIFIED
 
         val cells = mutableListOf<CellRects>()
 
@@ -159,85 +160,90 @@ object A4LayoutCalculator {
                 }
                 curY += h + gapPx
             }
-        } else if (isCenter) {
-            // CENTER PRESET:
-            // Photos in each row are centered horizontally, and used rows are centered vertically
-            val rowHeights = FloatArray(usedRows) { cellHeight }
-            val totalClusterH = usedRows * cellHeight + (usedRows - 1) * gapPx
+        } else {
+            // DYNAMIC ROW HEIGHTS & ADAPTIVE COLUMN SPACING (JUSTIFIED / CENTER / LEFT / RIGHT):
+            // Eliminates massive vertical gaps between portrait and landscape rows,
+            // and eliminates massive horizontal gaps between tall portrait columns by moving them close towards center.
+            val rowHeights = FloatArray(usedRows)
+            val rowAspectsList = mutableListOf<List<Float>>()
+
+            for (r in 0 until usedRows) {
+                val startIdx = r * cols
+                val endIdx = minOf(count, startIdx + cols)
+                val rowAspects = photoAspectRatios.subList(startIdx, endIdx)
+                rowAspectsList.add(rowAspects)
+
+                var maxHInRow = 0f
+                for (aspect in rowAspects) {
+                    val asp = aspect.coerceAtLeast(0.1f)
+                    val h = if (asp >= (cellWidth / cellHeight)) {
+                        cellWidth / asp
+                    } else {
+                        cellHeight
+                    }
+                    if (h > maxHInRow) maxHInRow = h
+                }
+                rowHeights[r] = maxHInRow
+            }
+
+            val totalClusterH = rowHeights.sum() + (usedRows - 1) * gapPx
+            // Center the entire cluster vertically on the A4 page (moves bottom row smoothly upwards)
             val clusterStartY = marginPx + ((pageHeight - (2 * marginPx) - totalClusterH).coerceAtLeast(0f) / 2f)
 
             var curY = clusterStartY
             for (r in 0 until usedRows) {
-                val startIdx = r * cols
-                val endIdx = minOf(count, startIdx + cols)
-                val rowCount = endIdx - startIdx
-                val isOddLast = (rowCount == 1 && cols > 1)
+                val rowAspects = rowAspectsList[r]
+                val rowCount = rowAspects.size
+                val h = rowHeights[r]
 
-                val actualCellLeft = if (isOddLast) marginPx + (printableWidth - cellWidth) / 2f else marginPx
-                val rowW = if (isOddLast) cellWidth else printableWidth
-
+                // Compute exact rendered width of each photo in this row
+                val widths = FloatArray(rowCount)
+                val heights = FloatArray(rowCount)
                 for (c in 0 until rowCount) {
-                    val idx = startIdx + c
-                    val aspect = photoAspectRatios[idx].coerceAtLeast(0.1f)
-                    val cLeft = if (isOddLast) actualCellLeft else (marginPx + c * (cellWidth + gapPx))
-
-                    val (cw, ch) = if (aspect >= (cellWidth / cellHeight)) {
-                        Pair(cellWidth, cellWidth / aspect)
+                    val asp = rowAspects[c].coerceAtLeast(0.1f)
+                    val (w, photoH) = if (asp >= (cellWidth / cellHeight)) {
+                        Pair(cellWidth, cellWidth / asp)
                     } else {
-                        Pair(cellHeight * aspect, cellHeight)
+                        Pair(cellHeight * asp, cellHeight)
                     }
-
-                    val posX = cLeft + (cellWidth - cw) / 2f
-                    val posY = curY + (cellHeight - ch) / 2f
-
-                    val contentBounds = PageRect(posX, posY, posX + cw, posY + ch)
-                    val cellBounds = PageRect(cLeft, curY, cLeft + cellWidth, curY + cellHeight)
-                    cells.add(CellRects(idx, cellBounds, contentBounds))
+                    widths[c] = w
+                    heights[c] = photoH
                 }
-                curY += cellHeight + gapPx
-            }
-        } else {
-            // JUSTIFIED (GRID) / LEFT / RIGHT PRESETS:
-            val rowHeights = FloatArray(usedRows) { cellHeight }
-            // For Left / Right / Justified, center vertically if fewer than full grid rows are used
-            val totalClusterH = usedRows * cellHeight + (usedRows - 1) * gapPx
-            val clusterStartY = if (usedRows < gridRows) {
-                marginPx + ((pageHeight - (2 * marginPx) - totalClusterH).coerceAtLeast(0f) / 2f)
-            } else {
-                marginPx
-            }
 
-            var curY = clusterStartY
-            for (r in 0 until usedRows) {
-                val startIdx = r * cols
-                val endIdx = minOf(count, startIdx + cols)
-                val rowCount = endIdx - startIdx
-                val isOddLast = (rowCount == 1 && cols > 1)
+                val isOddSingleRow = (rowCount == 1 && cols > 1)
+                val totalRowContentW = widths.sum() + ((rowCount - 1) * gapPx)
 
+                // When photos in a row are narrower than full grid column width (e.g. 9:16 portrait photos),
+                // move left and right photos close towards the center, eliminating the large column gap!
+                // For a single odd photo on the last row, align it in Column 1 when Left/Justified, or centered when Center.
+                val rowStartX = when {
+                    isLeft -> marginPx
+                    isRight -> pageWidth - marginPx - totalRowContentW
+                    isOddSingleRow && isJustified -> marginPx
+                    else -> (pageWidth - totalRowContentW) / 2f // Justified (Grid) and Center
+                }
+
+                var curX = rowStartX
                 for (c in 0 until rowCount) {
-                    val idx = startIdx + c
-                    val aspect = photoAspectRatios[idx].coerceAtLeast(0.1f)
-                    val cLeft = marginPx + c * (cellWidth + gapPx)
+                    val idx = r * cols + c
+                    val w = widths[c]
+                    val photoH = heights[c]
 
-                    val (cw, ch) = if (aspect >= (cellWidth / cellHeight)) {
-                        Pair(cellWidth, cellWidth / aspect)
-                    } else {
-                        Pair(cellHeight * aspect, cellHeight)
-                    }
+                    val posX = curX
+                    val posY = curY + (h - photoH) / 2f
 
-                    val posX = when {
-                        isLeft -> cLeft
-                        isRight -> cLeft + (cellWidth - cw)
-                        isOddLast -> (pageWidth - cw) / 2f
-                        else -> cLeft + (cellWidth - cw) / 2f
-                    }
-                    val posY = curY + (cellHeight - ch) / 2f
-
-                    val contentBounds = PageRect(posX, posY, posX + cw, posY + ch)
-                    val cellBounds = PageRect(cLeft, curY, cLeft + cellWidth, curY + cellHeight)
+                    val contentBounds = PageRect(posX, posY, posX + w, posY + photoH)
+                    val cellBounds = PageRect(
+                        if (isOddSingleRow && isJustified) marginPx else posX,
+                        curY,
+                        if (isOddSingleRow && isJustified) marginPx + cellWidth else posX + w,
+                        curY + h
+                    )
                     cells.add(CellRects(idx, cellBounds, contentBounds))
+
+                    curX += w + gapPx
                 }
-                curY += cellHeight + gapPx
+                curY += h + gapPx
             }
         }
 
